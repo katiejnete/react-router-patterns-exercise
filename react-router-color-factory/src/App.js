@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate, Link } from "react-router-dom";
+import ColorList from "./ColorList";
+import Color from "./Color";
+import NewColorForm from "./NewColorForm";
 
 function App() {
+  const INITIAL_STATE = [{colorName: "red", colorValue: "#ff0000"},{colorName: "green", colorValue: "#00ff00"},{colorName: "blue", colorValue: "#0000ff"}];
+  const [colors, setColors] = useState(() => {
+    const storedColors = window.localStorage.getItem("colors");
+    return storedColors ? JSON.parse(storedColors) : INITIAL_STATE;
+  })
+  useEffect(() => {
+    window.localStorage.setItem('colors', JSON.stringify(colors));
+  }, [colors]);
+  const addColor = (color) => {
+    const newColor = {...color};
+    setColors((colors) => [newColor, ...colors]);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route exact path="/colors" element={<ColorList colors={colors} />} />
+        {colors.map((color) => (
+          <Route
+            key={color.colorName}
+            path={`/colors/${color.colorName}`}
+            element={<Color color={color} />}
+          />
+        ))}
+        <Route exact path="/colors/new" element={<NewColorForm addColor={addColor} />} />
+        <Route path="*" element={<Navigate to="/colors" />} />
+      </Routes>
+    </>
   );
 }
 
