@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { Navigate } from "react-router-dom";
 
@@ -6,7 +6,7 @@ const NewColorForm = ({ addColor }) => {
   const [submitted, setSubmitted] = useState(false);
 
   const formik = useFormik({
-    initialValues: { colorName: "", colorValue: "#000000"},
+    initialValues: { colorName: "", colorValue: "#000000" },
     onSubmit: (values, { resetForm }) => {
       addColor(values);
       resetForm();
@@ -21,8 +21,9 @@ const NewColorForm = ({ addColor }) => {
   });
 
   if (submitted) {
-    return <Navigate to="/colors"/>;
+    return <Navigate to="/colors" />;
   }
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <label htmlFor="colorName">Color name:</label>
