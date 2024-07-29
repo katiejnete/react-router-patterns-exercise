@@ -7,10 +7,9 @@ const Nav = ({ dogs }) => {
     <nav>
       {dogs.map((dog) => {
         return (
-          <NavLink
-            key={dog.name}
-            to={`/dogs/${dog.name}`}
-          >{dog.name}</NavLink>
+          <NavLink key={dog.name} to={`/dogs/${dog.name}`}>
+            {dog.name}
+          </NavLink>
         );
       })}
     </nav>
