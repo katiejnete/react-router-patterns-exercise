@@ -6,5 +6,5 @@ import { render, screen, waitFor } from '@testing-library/react';
 
 test('renders learn react link', () => {
   Router.useParams.mockReturnValue({a: "b"});	
-  render(<DogDetail />)
+  render(<DogDetails />)
 });

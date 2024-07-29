@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 
 const DogDetails = ({ dog }) => {
   const dogInfo = Object.entries(dog);
+
   return (
     <>
       <ul>
